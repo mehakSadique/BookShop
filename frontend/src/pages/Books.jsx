@@ -9,10 +9,10 @@ const Books = () => {
         const fetchAllBooks = async () => {
             try {
                 const res = await axios.get("https://bookshop-36qd.onrender.com/books");
-                setBooks(res.data);
-                console.log(res.data); // ✅ Log actual data instead of the entire response
+                console.log("API Response:", res.data); // Log response
+                setBooks(Array.isArray(res.data) ? res.data : []);
             } catch (err) {
-                console.log(err);
+                console.log("Fetch error:", err);
             }
         };
 
@@ -21,34 +21,27 @@ const Books = () => {
 
     const handleDelete = async (id) => {
         try {
-          await axios.delete(`https://bookshop-36qd.onrender.com/books${id}`);
-          window.location.reload()
+            await axios.delete(`https://bookshop-36qd.onrender.com/books/${id}`);
+            setBooks(books.filter(book => book.id !== id)); // Update state instead of reload
         } catch (err) {
-          console.log(err);
+            console.log("Delete error:", err);
         }
-      };
-// const handleUpdate= async(id)=>{
-//     try{
-//         await axios.delete("https://bookshop-36qd.onrender.com/books"+id)
-//         window.location.reload()
-//     }catch(err){
-//         console.log(err)
-//     }
-// }
+    };
+
     return (
         <div>
             <h1>Lama Books Shop</h1>
             <div className="books">
-                {books.map((book)=> (  // ✅ Corrected map function
-                    <div className="book" key={book.id}>  {/* ✅ Added unique key */}
+                {books.length > 0 ? books.map((book) => (
+                    <div className="book" key={book.id}>
                         {book.cover && <img src={book.cover} alt={book.title} />}
                         <h2>{book.title}</h2>
                         <p>{book.description}</p>
                         <span>{book.price}</span>
-                        <button className='delete' onClick={()=>handleDelete(book.id)}>Delete</button>
+                        <button className='delete' onClick={() => handleDelete(book.id)}>Delete</button>
                         <button className='update'><Link to={`/update/${book.id}`}>Update</Link></button>
                     </div>
-                ))}
+                )) : <p>No books available.</p>}
             </div>
             <button><Link to="/add">Add new Book</Link></button>
         </div>
