@@ -24,7 +24,7 @@ const Update = () => {
     e.preventDefault();
 
     try {
-      await axios.put(`http://localhost:8800/books/${bookId}`, book);
+      await axios.put(`https://bookshop-36qd.onrender.com/books${bookId}`, book);
       navigate("/");
     } catch (err) {
       console.log(err);

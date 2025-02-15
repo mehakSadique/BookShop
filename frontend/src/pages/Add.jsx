@@ -17,7 +17,7 @@ const handleChange= (e) =>{
 const handleClick= async (e) =>{
   e.preventDefault();
   try{
-    await axios.post("http://localhost:8800/books",book)
+    await axios.post("https://bookshop-36qd.onrender.com/books",book)
     navigate("/")
    
   }catch(err){

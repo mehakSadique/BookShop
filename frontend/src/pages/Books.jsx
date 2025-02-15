@@ -8,7 +8,7 @@ const Books = () => {
     useEffect(() => {
         const fetchAllBooks = async () => {
             try {
-                const res = await axios.get("http://localhost:8800/books");
+                const res = await axios.get("https://bookshop-36qd.onrender.com/books");
                 setBooks(res.data);
                 console.log(res.data); // ✅ Log actual data instead of the entire response
             } catch (err) {
@@ -21,7 +21,7 @@ const Books = () => {
 
     const handleDelete = async (id) => {
         try {
-          await axios.delete(`http://localhost:8800/books/${id}`);
+          await axios.delete(`https://bookshop-36qd.onrender.com/books${id}`);
           window.location.reload()
         } catch (err) {
           console.log(err);
@@ -29,7 +29,7 @@ const Books = () => {
       };
 // const handleUpdate= async(id)=>{
 //     try{
-//         await axios.delete("https://localhost:8800/book"+id)
+//         await axios.delete("https://bookshop-36qd.onrender.com/books"+id)
 //         window.location.reload()
 //     }catch(err){
 //         console.log(err)
